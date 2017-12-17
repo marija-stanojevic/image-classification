@@ -118,7 +118,7 @@ def build_network():
     img_aug.add_random_flip_leftright()
     img_aug.add_random_crop([IMG_WIDTH, IMG_HEIGHT], padding=4)
     
-    #Ashis: transition layer didn't use here
+    #Transition layer didn't use here
     #Hence, each densenet_block used same nb_layers and growth (k)
     #transition layer needs to balance two adjacent densenet_block
 
