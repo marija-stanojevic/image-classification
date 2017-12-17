@@ -9,8 +9,8 @@ from tflearn.data_preprocessing import ImagePreprocessing
 from tflearn.data_augmentation import ImageAugmentation
 
 
-from batches import load_batch  		          # loading data file
-from batches5 import load_cross_validation  	# loading cross validation data file
+from batches import load_batch                 # loading data file
+from batches import load_cross_validation      # loading cross validation data file
 
 
 # ******************************************************************
