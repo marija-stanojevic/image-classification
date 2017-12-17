@@ -79,7 +79,7 @@ def test(model, total_test_batches_no):
         for i in range(0, 10):
             testXpart = testX[i * size, min((i + 1) * size, len(testX))]
             predictions.extend(model.predict_label(testXpart))
-    with open(b.PATH + 'ALL' + 'resNetPredictions.txt', 'wb') as pickleFile:
+    with open(b.PATH + 'ALL' + 'wideResNetPredictions.txt', 'wb') as pickleFile:
         pickle.dump(predictions, pickleFile)
 
 def main():
@@ -89,7 +89,7 @@ def main():
     epochs_no = 100
     starting_epoch_no = 0
     # last epoch model saved location should be provided below (only if starting_epoch_no > 0)
-    # last_model_file = 'resNet707Batches/ALLmodel_resnet_epoch_4.txt'
+    # last_model_file = 'wideResNet707Batches/ALLmodel_wideresnet_epoch_4.txt'
     # in first run it divides dataset into batches, otherwise
     firstRun = True
     model, total_test_batches_no = train(n, k, firstRun, epochs_no, starting_epoch_no)

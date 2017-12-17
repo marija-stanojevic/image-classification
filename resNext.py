@@ -88,7 +88,7 @@ def main():
     epochs_no = 100
     starting_epoch_no = 0
     # last epoch model saved location should be provided below (only if starting_epoch_no > 0)
-    # last_model_file = 'resNet707Batches/ALLmodel_resnet_epoch_4.txt'
+    # last_model_file = 'resNext707Batches/ALLmodel_resnext_epoch_4.txt'
     # in first run it divides dataset into batches, otherwise
     firstRun = True
     model, total_test_batches_no = train(n, firstRun, epochs_no, starting_epoch_no)
