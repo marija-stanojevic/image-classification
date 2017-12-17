@@ -3,14 +3,15 @@ import tflearn
 import tensorflow as tf
 from tflearn.layers.conv import conv_2d
 
-def residual_block(incoming, nb_blocks, out_channels, downsample=False,
+def wideresnet_block(incoming, nb_blocks, out_channels, width, downsample=False,
                    downsample_strides=2, activation='relu', batch_norm=True,
                    bias=True, weights_init='variance_scaling',
                    bias_init='zeros', regularizer='L2', weight_decay=0.0001,
                    trainable=True, restore=True, reuse=False, scope=None,
-                   name="ResidualBlock"):
+                   name="WideResNetBlock"):
 
-    resnet = incoming
+    out_channels = out_channels * width #layers are wider for a constant
+    widenet = incoming
     in_channels = incoming.get_shape().as_list()[-1]
 
     # Variable Scope fix for older TF
@@ -21,27 +22,28 @@ def residual_block(incoming, nb_blocks, out_channels, downsample=False,
 
         for i in range(nb_blocks):
 
-            identity = resnet
+            identity = widenet
 
             if not downsample:
                 downsample_strides = 1
 
             if batch_norm:
-                #I think conv_2d should go before not after batch normalization and activation
-                resnet = tflearn.batch_normalization(resnet)
-            resnet = tflearn.activation(resnet, activation)
+                widenet = tflearn.batch_normalization(widenet)
+            widenet = tflearn.activation(widenet, activation)
 
-            resnet = conv_2d(resnet, out_channels, 3,
+            widenet = conv_2d(widenet, out_channels, 3,
                              downsample_strides, 'same', 'linear',
                              bias, weights_init, bias_init,
                              regularizer, weight_decay, trainable,
                              restore)
 
             if batch_norm:
-                resnet = tflearn.batch_normalization(resnet)
-            resnet = tflearn.activation(resnet, activation)
+                widenet = tflearn.batch_normalization(widenet)
+            widenet = tflearn.activation(widenet, activation)
 
-            resnet = conv_2d(resnet, out_channels, 3, 1, 'same',
+            widenet = tflearn.dropout(widenet, 0.7) #added dropout between layers
+
+            widenet = conv_2d(widenet, out_channels, 3, 1, 'same',
                              'linear', bias, weights_init,
                              bias_init, regularizer, weight_decay,
                              trainable, restore)
@@ -58,6 +60,6 @@ def residual_block(incoming, nb_blocks, out_channels, downsample=False,
                                   [[0, 0], [0, 0], [0, 0], [ch, ch]])
                 in_channels = out_channels
 
-            resnet = resnet + identity
+            widenet = widenet + identity
 
-    return resnet
+    return widenet
