@@ -1,4 +1,4 @@
-<h3>Computer Vision Project: E-commerce Image Classification using Deep Learning </h3>
+<h3>Computer Vision Project: E-commerce Image Classification using Deep Learning (Nov 2017)</h3>
 
 This is done as a project on computer vision class. Data are taken from Kaggle competition Cdiscount’s Image Classification Challenge (https://www.kaggle.com/c/cdiscount-image-classification-challenge). 
 
